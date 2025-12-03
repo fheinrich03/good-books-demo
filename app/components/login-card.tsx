@@ -1,3 +1,4 @@
+import { toast } from "sonner";
 import { Button } from "./ui/button";
 import {
   Card,
@@ -8,40 +9,79 @@ import {
   CardTitle,
 } from "./ui/card";
 import { Input } from "./ui/input";
-import { Label } from "./ui/label";
+import { Controller, useForm } from "react-hook-form";
+import * as z from "zod";
+import { Field, FieldGroup, FieldLabel } from "./ui/field";
+
+const loginSchema = z.object({
+  username: z.string(),
+  password: z.string(),
+});
 
 export default function LoginCard() {
+  const form = useForm({
+    defaultValues: {
+      username: "",
+      password: "",
+    },
+  });
+
+  function onSubmit(data: z.infer<typeof loginSchema>) {
+    toast("submit");
+    localStorage.setItem("username", data.username);
+    localStorage.setItem("password", data.password);
+  }
+
   return (
     <Card className="h-min w-sm">
       <CardHeader>
-        <CardTitle>Login to your account</CardTitle>
+        <CardTitle>Login</CardTitle>
         <CardDescription>
-          Enter your username below to login to your account
+          <p>This is a mock login, any login data will work</p>
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form>
-          <div className="flex flex-col gap-6">
-            <div className="grid gap-2">
-              <Label htmlFor="username">username</Label>
-              <Input
-                id="username"
-                type="username"
-                placeholder="username"
-                required
+        <form id="login-form" onSubmit={form.handleSubmit(onSubmit)}>
+          <FieldGroup>
+            <div className="flex flex-col gap-6">
+              <Controller
+                name="username"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field className="gird gap-2">
+                    <FieldLabel htmlFor="username">username</FieldLabel>
+                    <Input
+                      {...field}
+                      id="username"
+                      type="username"
+                      placeholder="username"
+                      required
+                    />
+                  </Field>
+                )}
+              />
+              <Controller
+                name="password"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field className="grid gap-2">
+                    <FieldLabel htmlFor="password">username</FieldLabel>
+                    <Input
+                      {...field}
+                      id="password"
+                      type="password"
+                      placeholder="password"
+                      required
+                    />
+                  </Field>
+                )}
               />
             </div>
-            <div className="grid gap-2">
-              <div className="flex items-center">
-                <Label htmlFor="password">Password</Label>
-              </div>
-              <Input id="password" type="password" required />
-            </div>
-          </div>
+          </FieldGroup>
         </form>
       </CardContent>
       <CardFooter className="flex-col gap-2">
-        <Button type="submit" className="w-full">
+        <Button type="submit" form="login-form" className="w-full">
           Login
         </Button>
       </CardFooter>
