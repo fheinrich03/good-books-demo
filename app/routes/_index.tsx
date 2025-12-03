@@ -1,4 +1,4 @@
-import BookList from "~/components/book-list";
+import BookList from "@/components/book-list/book-list";
 import type { Route } from "../+types/root";
 
 export function meta({}: Route.MetaArgs) {

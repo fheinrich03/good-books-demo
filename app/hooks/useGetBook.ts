@@ -1,38 +1,31 @@
 import { useQuery } from "@tanstack/react-query";
 import type { Book } from "~/types/book";
-import { mapBookDTOToBookRow } from "~/utils/book";
 
-export interface BookListResponse {
-  kind: string;
-  totalItems: number;
-  items: Book[];
-}
-
-export async function fetchBookList() {
-  const url = "https://www.googleapis.com/books/v1/volumes?q=subject:fiction";
+export async function fetchBookDetails(id: string) {
+  const url = "https://www.googleapis.com/books/v1/volumes/" + id;
+  console.log(url);
   try {
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
 
-    const result: BookListResponse = await response.json();
+    const result: Book = await response.json();
     return result;
   } catch (error) {
     console.error(error.message);
   }
 }
 
-export function useGetBookList() {
+export function useGetBookDetails(id: string) {
   const response = useQuery({
     queryKey: ["book-list"],
-    queryFn: fetchBookList,
+    queryFn: () => fetchBookDetails(id),
   });
-  const books = mapBookDTOToBookRow(response?.data);
 
   return {
     isLoading: response.isLoading,
     isError: response.isError,
-    books,
+    book: response.data,
   };
 }

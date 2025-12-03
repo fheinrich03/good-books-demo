@@ -1,9 +1,3 @@
-export interface BookResponse {
-  kind: string
-  totalItems: number
-  items: Book[]
-}
-
 export interface Book {
   kind: string
   id: string
