@@ -10,6 +10,36 @@ A React Demo Project interacting with Google Books API.
 - 🎉 TailwindCSS for styling
 - API Client - Tanstack React Query
 
+---
+
+## Features
+
+### Features defined in Requirements
+
+**Book List Page**
+- Shows a list of Books fetched from [Google Books API](https://developers.google.com/books/docs/v1/using?hl=en)
+- Use the Search Query above the table to look for specific book titles
+  - e.g. "school" -> looks for books with "school" in the title
+  - e.g. "genre:romance" -> looks for books with "romance" as a genre
+  - etc.
+
+**Book Detail Page**
+- Can be accessed by clicking on any book in the BookList
+- Shows Additional Details for a specific Book
+- Users can 
+  - leave a star review (saved via React.useState) 
+  - or write a Text Review (shows success toast, but no real submit action)
+
+**Authentication**
+- All routes under the path`/books` are protected (so `/books` as well as `/books/:id`)
+
+### Additional Features
+
+- User Avatar in the Header that shows user name initials (top right)
+- Logout function is available when clicking on User Avatar (top right)
+
+---
+
 ## Getting Started
 
 ### Installation
@@ -37,6 +67,8 @@ Create a production build:
 ```bash
 npm run build
 ```
+
+---
 
 ## Deployment
 
