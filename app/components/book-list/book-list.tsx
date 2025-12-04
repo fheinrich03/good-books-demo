@@ -1,7 +1,6 @@
 import { columns, type BookRow } from "./columns";
 import { DataTable } from "@/components/ui/data-table";
 import { useGetBookList } from "@/hooks/useGetBookList";
-import type { Row } from "@tanstack/react-table";
 import { useNavigate } from "react-router";
 import { NAV_ROUTES } from "~/config/nav-routes";
 

@@ -12,6 +12,9 @@ import { Input } from "./ui/input";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
 import { Field, FieldGroup, FieldLabel } from "./ui/field";
+import type { AuthUser } from "~/types/auth-user";
+import { useNavigate } from "react-router";
+import { NAV_ROUTES } from "~/config/nav-routes";
 
 const loginSchema = z.object({
   username: z.string(),
@@ -19,6 +22,7 @@ const loginSchema = z.object({
 });
 
 export default function LoginCard() {
+  const navigate = useNavigate();
   const form = useForm({
     defaultValues: {
       username: "",
@@ -27,9 +31,13 @@ export default function LoginCard() {
   });
 
   function onSubmit(data: z.infer<typeof loginSchema>) {
-    toast("submit");
-    localStorage.setItem("username", data.username);
-    localStorage.setItem("password", data.password);
+    toast("submitted successfully");
+    const user: AuthUser = {
+      username: data.username,
+      password: data.password,
+    }
+    localStorage.setItem("user", JSON.stringify(user));
+    navigate(NAV_ROUTES.HOME);
   }
 
   return (

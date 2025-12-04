@@ -12,7 +12,7 @@ export async function fetchBookDetails(id: string) {
 
     const result: Book = await response.json();
     return result;
-  } catch (error) {
+  } catch (error: any) {
     console.error(error.message);
   }
 }

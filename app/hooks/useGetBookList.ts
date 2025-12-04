@@ -18,7 +18,7 @@ export async function fetchBookList() {
 
     const result: BookListResponse = await response.json();
     return result;
-  } catch (error) {
+  } catch (error: any) {
     console.error(error.message);
   }
 }
