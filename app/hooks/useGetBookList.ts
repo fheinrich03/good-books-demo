@@ -8,8 +8,9 @@ export interface BookListResponse {
   items: Book[];
 }
 
-export async function fetchBookList() {
-  const url = "https://www.googleapis.com/books/v1/volumes?q=subject:fiction";
+export async function fetchBookList(query: string) {
+  if (query === "") query = "subject:fiction";
+  const url = "https://www.googleapis.com/books/v1/volumes?q=" + query;
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -23,10 +24,10 @@ export async function fetchBookList() {
   }
 }
 
-export function useGetBookList() {
+export function useGetBookList(query: string) {
   const response = useQuery({
-    queryKey: ["book-list"],
-    queryFn: fetchBookList,
+    queryKey: ["book-list", query],
+    queryFn: () => fetchBookList(query),
   });
   const books = mapBookDTOToBookRow(response?.data);
 

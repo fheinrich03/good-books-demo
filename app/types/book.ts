@@ -10,7 +10,7 @@ export interface Book {
 
 export interface VolumeInfo {
   title: string
-  authors: string[]
+  authors?: string[]
   publisher: string
   publishedDate?: string
   description: string
@@ -18,7 +18,7 @@ export interface VolumeInfo {
   readingModes: ReadingModes
   pageCount: number
   printType: string
-  categories: string[]
+  categories?: string[]
   maturityRating: string
   allowAnonLogging: boolean
   contentVersion: string

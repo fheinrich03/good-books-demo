@@ -8,8 +8,8 @@ export function mapBookDTOToBookRow(booksDto?: BookListResponse) {
     const bookRow: BookRow = {
       id: book.id,
       title: bookInfo.title,
-      author: bookInfo.authors.join(),
-      genre: bookInfo.categories.join(),
+      author: bookInfo.authors?.join() ?? "",
+      genre: bookInfo.categories?.join() ?? "",
       averageRating: bookInfo.averageRating,
     };
     return bookRow;

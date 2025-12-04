@@ -1,11 +1,10 @@
 import { columns, type BookRow } from "./columns";
 import { DataTable } from "@/components/ui/data-table";
-import { useGetBookList } from "@/hooks/useGetBookList";
 import { useNavigate } from "react-router";
 import { NAV_ROUTES } from "~/config/nav-routes";
 
 interface BookListProps {
-  books: BookRow[];
+  books?: BookRow[];
 }
 
 export default function BookList({ books }: BookListProps) {
@@ -14,6 +13,8 @@ export default function BookList({ books }: BookListProps) {
   function onRowClick(b: BookRow) {
     navigate(NAV_ROUTES.BOOK_DETAIL(b.id));
   }
+  
+  if (!books) return null;
 
   return <DataTable columns={columns} data={books} onRowClick={onRowClick} />;
 }

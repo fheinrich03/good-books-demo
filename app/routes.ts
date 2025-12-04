@@ -9,10 +9,11 @@ export default [
   layout("./routes/main-layout.tsx", [
     route("login", "./routes/login-page.tsx"),
 
-    //protected routes
     layout(
       "./routes/(protected)/protected-layout.tsx",
       { id: "protected-layout" },
+
+      //protected routes
       [
         index("./routes/home-page.tsx"),
         route("books", "./routes/(protected)/books/book-list-page.tsx"),
