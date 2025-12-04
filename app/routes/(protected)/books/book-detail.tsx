@@ -11,19 +11,27 @@ export default function BookDetailPage() {
   const params = useParams<BookParams>();
   const { book, isLoading } = useGetBookDetails(params.id!);
 
-  if (isLoading) return <>Loading</>;
-  if (!book) return <>Book Not found</>;
-  console.log(book);
-  
-  return (
-    <div className="flex min-h-screen items-center justify-center">
-      <div className="grid gap-8">
-        <h1 className="text-center text-2xl font-semibold">Book Details</h1>
-        <div className="grid grid-cols-2 gap-8">
-          <BookCard imageUrl={book.volumeInfo?.imageLinks.thumbnail} />
-          <BookDetail book={book} />
-        </div>
+  function renderContent() {
+    if (isLoading) return <>Loading</>;
+    if (!book) return <>Book Not found</>;
+
+    return (
+      <div className="flex gap-10">
+        <BookCard imageUrl={book.volumeInfo?.imageLinks.thumbnail} />
+        <BookDetail book={book} />
       </div>
-    </div>
+    );
+  }
+
+  return (
+    <>
+      <h1 className="my-10 text-center text-5xl font-semibold">Book Details</h1>
+      <div
+        id="content"
+        className="flex h-full items-center justify-center py-16"
+      >
+        {renderContent()}
+      </div>
+    </>
   );
 }

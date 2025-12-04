@@ -4,20 +4,16 @@ import { useGetBookList } from "@/hooks/useGetBookList";
 import { useNavigate } from "react-router";
 import { NAV_ROUTES } from "~/config/nav-routes";
 
-export default function BookList() {
-  const { books, isLoading } = useGetBookList();
-  const navigate = useNavigate();
+interface BookListProps {
+  books: BookRow[];
+}
 
-  if (isLoading) return <>Loading</>;
-  if (!books) return;
+export default function BookList({ books }: BookListProps) {
+  const navigate = useNavigate();
 
   function onRowClick(b: BookRow) {
     navigate(NAV_ROUTES.BOOK_DETAIL(b.id));
   }
 
-  return (
-    <div className="container mx-auto py-10">
-      <DataTable columns={columns} data={books} onRowClick={onRowClick} />
-    </div>
-  );
+  return <DataTable columns={columns} data={books} onRowClick={onRowClick} />;
 }

@@ -14,5 +14,9 @@ export default function ProtectedLayout() {
   if (!user) {
     return <Navigate to={NAV_ROUTES.LOGIN} replace />;
   }
-  return <Outlet />;
+  return (
+    <div id="main" className="min-h-screen justify-center">
+      <Outlet />
+    </div>
+  );
 }

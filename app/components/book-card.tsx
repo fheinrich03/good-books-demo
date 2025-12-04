@@ -6,7 +6,7 @@ interface BookCardProps {
 
 export default function BookCard({ imageUrl }: BookCardProps) {
   return (
-    <div className="max-w-sm">
+    <div className="min-w-sm">
       <AspectRatio ratio={4 / 5} className="bg-muted rounded-lg">
         <img
           src={imageUrl}
