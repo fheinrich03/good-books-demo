@@ -1,3 +1,4 @@
+import { useRevalidator } from "react-router";
 import type { AuthUser } from "~/types/auth-user";
 
 export function getUserFromClient(): AuthUser | null {
@@ -5,4 +6,12 @@ export function getUserFromClient(): AuthUser | null {
   if (!user) return null;
 
   return JSON.parse(user);
+}
+
+export function loginUser(user: AuthUser) {
+  localStorage.setItem("user", JSON.stringify(user));
+}
+
+export function logoutUser() {
+  localStorage.removeItem("user");
 }

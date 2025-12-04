@@ -13,8 +13,9 @@ import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
 import { Field, FieldGroup, FieldLabel } from "./ui/field";
 import type { AuthUser } from "~/types/auth-user";
-import { useNavigate } from "react-router";
+import { useNavigate, useRevalidator } from "react-router";
 import { NAV_ROUTES } from "~/config/nav-routes";
+import { loginUser } from "~/service/auth-service";
 
 const loginSchema = z.object({
   username: z.string(),
@@ -23,6 +24,7 @@ const loginSchema = z.object({
 
 export default function LoginCard() {
   const navigate = useNavigate();
+  const revalidator = useRevalidator();
   const form = useForm({
     defaultValues: {
       username: "",
@@ -31,12 +33,12 @@ export default function LoginCard() {
   });
 
   function onSubmit(data: z.infer<typeof loginSchema>) {
-    toast("submitted successfully");
     const user: AuthUser = {
       username: data.username,
       password: data.password,
     }
-    localStorage.setItem("user", JSON.stringify(user));
+    loginUser(user);
+    revalidator.revalidate();
     navigate(NAV_ROUTES.HOME);
   }
 
@@ -73,7 +75,7 @@ export default function LoginCard() {
                 control={form.control}
                 render={({ field, fieldState }) => (
                   <Field className="grid gap-2">
-                    <FieldLabel htmlFor="password">username</FieldLabel>
+                    <FieldLabel htmlFor="password">password</FieldLabel>
                     <Input
                       {...field}
                       id="password"

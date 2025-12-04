@@ -18,7 +18,7 @@ export default function BookDetail({ book }: BookDetailProps) {
         <p className="text-lg mt-4">Rating: {bookInfo.averageRating}</p>
       )}
       <Separator className="my-4" />
-      <div>
+      <div className="flex space-x-4">
         <p>Genres: </p>
         <ul className="flex h-5 space-x-4">
           {bookInfo.categories.map((category, index) => {
