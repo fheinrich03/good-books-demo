@@ -1,6 +1,7 @@
 import { useParams } from "react-router";
 import BookCard from "~/components/book-card";
 import BookDetail from "~/components/book-detail";
+import DynamicBreadcrumbs from "~/components/dynamic-breadcrumbs";
 import { useGetBookDetails } from "~/hooks/useGetBook";
 
 type BookParams = {
@@ -24,14 +25,15 @@ export default function BookDetailPage() {
   }
 
   return (
-    <>
+    <div className="grid justify-center">
       <h1 className="my-10 text-center text-5xl font-semibold">Book Details</h1>
       <div
         id="content"
-        className="flex h-full items-center justify-center py-16"
+        className="h-full w-7xl items-center justify-center py-16"
       >
+        <DynamicBreadcrumbs className="mb-8" />
         {renderContent()}
       </div>
-    </>
+    </div>
   );
 }

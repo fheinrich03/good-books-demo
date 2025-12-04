@@ -31,9 +31,9 @@ export default function UserAvatar() {
   return (
     <div id="right">
       <DropdownMenu>
-        <DropdownMenuTrigger className="flex content-center items-center gap-2">
+        <DropdownMenuTrigger className="flex content-center items-center gap-2 hover:cursor-pointer">
           <CircleUser />
-          <p className="text-center text-2xl font-medium">{userInitials}</p>
+          <p className="text-center text-xl font-medium">{userInitials}</p>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
