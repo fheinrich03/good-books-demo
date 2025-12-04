@@ -1,7 +1,7 @@
 import { Outlet } from "react-router";
 import Header from "~/components/header";
 
-export default function Layout() {
+export default function MainLayout() {
   
   return (
     <div id="main" className="min-h-screen justify-center">

@@ -1,20 +1,23 @@
 import {
   index,
   layout,
-  prefix,
   route,
   type RouteConfig,
 } from "@react-router/dev/routes";
 
 export default [
-  layout("./routes/layout.tsx", [
-    route("login", "./routes/login.tsx"),
+  layout("./routes/main-layout.tsx", [
+    route("login", "./routes/login-page.tsx"),
 
     //protected routes
-    layout("./routes/(protected)/layout.tsx", { id: "protected-layout" }, [
-      index("./routes/home.tsx"),
-      route("books", "./routes/(protected)/books/book-list.tsx"),
-      route("books/:id", "./routes/(protected)/books/book-detail.tsx"),
-    ]),
+    layout(
+      "./routes/(protected)/protected-layout.tsx",
+      { id: "protected-layout" },
+      [
+        index("./routes/home-page.tsx"),
+        route("books", "./routes/(protected)/books/book-list-page.tsx"),
+        route("books/:id", "./routes/(protected)/books/book-detail-page.tsx"),
+      ],
+    ),
   ]),
 ] satisfies RouteConfig;
