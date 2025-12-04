@@ -13,7 +13,7 @@ export default function App() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <Toaster />
+        <Toaster position="top-center"/>
         <Outlet />
       </QueryClientProvider>
     </>

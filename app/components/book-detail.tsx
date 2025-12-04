@@ -1,5 +1,10 @@
 import type { Book } from "~/types/book";
 import { Separator } from "./ui/separator";
+import { Rating } from "./ui/rating";
+import { useState } from "react";
+import { Textarea } from "./ui/textarea";
+import { Button } from "./ui/button";
+import { toast } from "sonner";
 
 interface BookDetailProps {
   book: Book;
@@ -7,21 +12,26 @@ interface BookDetailProps {
 
 export default function BookDetail({ book }: BookDetailProps) {
   const bookInfo = book?.volumeInfo;
-  if (!bookInfo) return null;
+  const [rating, setRating] = useState(bookInfo.averageRating ?? null);
 
   const languageNames = new Intl.DisplayNames(["en"], { type: "language" });
+
+  function handleSubmit() {
+    toast.success("Review submitted successfully");
+  }
+
   return (
     <div className="max-w-4xl">
       <h2 className="text-4xl font-medium">{bookInfo.title}</h2>
       <p className="mt-4 text-xl font-medium">by {bookInfo.authors}</p>
-      {bookInfo.averageRating && (
-        <p className="text-lg mt-4">Rating: {bookInfo.averageRating}</p>
+      {rating && (
+        <Rating className="mt-2" value={rating} onValueChange={(value) => setRating(value)} />
       )}
       <Separator className="my-4" />
       <div className="flex space-x-4">
         <p>Genres: </p>
         <ul className="flex h-5 space-x-4">
-          {bookInfo.categories.map((category, index) => {
+          {bookInfo.categories?.map((category, index) => {
             return (
               <li
                 key={"category-" + index.toString()}
@@ -48,6 +58,14 @@ export default function BookDetail({ book }: BookDetailProps) {
           <p>{bookInfo.publishedDate}</p>
           <p>{bookInfo.publisher}</p>
           <p>{bookInfo.pageCount}</p>
+        </div>
+      </div>
+
+      <div className="mt-8 space-y-2">
+        <p className="font-medium">Leave your review for this book!</p>
+        <Textarea className="min-h-30" />
+        <div className="flex w-full justify-end">
+          <Button onClick={handleSubmit}>Submit</Button>
         </div>
       </div>
     </div>
