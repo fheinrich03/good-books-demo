@@ -28,6 +28,8 @@ export default function UserAvatar() {
     navigate(NAV_ROUTES.LOGIN);
   }
 
+  if (!user) return <CircleUser />;
+
   return (
     <div id="right">
       <DropdownMenu>
